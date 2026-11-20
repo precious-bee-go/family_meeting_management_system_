@@ -1,5 +1,0 @@
-print(int)
-print(float)
-print(str)
-print(bool)
-print(type(None))
