@@ -1,0 +1,5 @@
+fastapi
+unicorn[standard]
+
+make-treasury
+run-treasury

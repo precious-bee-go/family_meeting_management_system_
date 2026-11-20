@@ -17,6 +17,7 @@ HTTP_CODES = {
     403: "FORBIDDEN",
     404: "NOT_FOUND",
     405: "METHOD_NOT_ALLOWED",
+    500: "SERVER_ERROR",
 }
  
  
