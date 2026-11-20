@@ -1,6 +1,9 @@
 from fastapi import FastAPI
+from familymeet_common import ServiceSettings, install_common
 
-app = FastAPI(title="Treasury API")
+settings = ServiceSettings(setting_name="treasury")
+app = FastAPI(title="Treasury & Assistance Service")
+install_common(app, settings)
 
 @app.get("/health")
 def health():

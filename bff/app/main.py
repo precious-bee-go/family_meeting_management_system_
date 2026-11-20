@@ -1,6 +1,9 @@
 from fastapi import FastAPI
+from familymeet_common import ServiceSettings, install_common
 
-app = FastAPI(title="bff resolutions")
+settings = ServiceSettings(service_name="bff")
+app = FastAPI(title="GraphQL BFF")
+install_common(app, settings)
 
 @app.get("/health")
 def health():
