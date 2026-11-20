@@ -3,6 +3,7 @@ from test import app
 
 client = TestClient(app)
 
+
 def test_pagination():
     response = client.get("/members?page=2&page_size=3")
     assert response.status_code == 200

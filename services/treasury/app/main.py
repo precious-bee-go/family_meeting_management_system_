@@ -1,14 +1,17 @@
 from fastapi import FastAPI
+
 from familymeet_common import ServiceSettings, install_common
 
 settings = ServiceSettings(setting_name="treasury")
 app = FastAPI(title="Treasury & Assistance Service")
 install_common(app, settings)
 
+
 @app.get("/health")
 def health():
-    return { "status": "ok" }
+    return {"status": "ok"}
+
 
 @app.get("/ready")
 def ready():
-    return { "status": "ok" }
+    return {"status": "ok"}

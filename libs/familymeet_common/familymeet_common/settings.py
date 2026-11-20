@@ -1,12 +1,12 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
- 
- 
+
+
 class ServiceSettings(BaseSettings):
     """Settings every service shares. Read from environment variables or a .env file.
- 
+
     A service can extend it:  class Settings(ServiceSettings): database_url: str
     """
- 
+
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     service_name: str = "familymeet-service"
