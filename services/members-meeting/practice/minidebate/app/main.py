@@ -45,3 +45,24 @@ def create_debate(data: DebateCreate) -> Debate:
     DEBATES[debate.id] = debate
     return debate
 
+@app.post("/debates/{debate_id}/votes", status_code=201)
+def cast_vote(data: VoteCreate, debate: DebateDep) -> dict:
+    if debate.status not "open":
+        raise RuleError(409, "DEBATE_CLOSED", "Votes are only accepted while the debate is open")
+    if data.number in dabate.votes:
+        raise RuleError(409, "DUPLICATE_VOTE", "This member has already voted")
+    dabate.vote[data.member] = data.choice
+
+    return { "member": data.member, "choice": data.choice}
+
+@app.patch("/debates/{debate_id}/close")
+def close_debate(debate: DebateDep) -> Debate:
+    debate.status = "clossed"
+    return debate
+
+@app.get("/debates/{debate_id}/result")
+def get_result(debate: DebateDep) -> dict:
+    counts = { "yes": 0, "no": 0, "abstain": 0}
+    for choice in dabate.vote.values():
+        counts[choice] += 1
+    return counts
