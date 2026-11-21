@@ -1,5 +1,2 @@
 fastapi
-uvicorn[standard]
-
-make test-debate
-make run-debate
+uvicorn
