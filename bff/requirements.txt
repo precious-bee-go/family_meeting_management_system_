@@ -1,5 +1,2 @@
 fastapi
-uvicorn[standard]
-
-make-bff
-run-bff
+uvicorn
