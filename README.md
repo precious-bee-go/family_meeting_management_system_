@@ -8,7 +8,7 @@ cmd"
     docker build -f bff/Dockerfile -t familymeet_bff:dev .
 
     docker run --rm -p 8002:8002 familymeet_debate:dev
-    docker run --rm -p 8003:8003 familymeet_bff:dev
-    docker run --rm -p 8004:8004 familymeet_member_meeting:dev
-    docker run --rm -p 8005:8005 familymeet_treasury:dev
+    docker run --rm -p 8000:8000 familymeet_bff:dev
+    docker run --rm -p 8001:8001 familymeet_member_meeting:dev
+    docker run --rm -p 8003:8003 familymeet_treasury:dev
     

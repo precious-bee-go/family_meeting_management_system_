@@ -13,5 +13,5 @@ COPY --from=builder /install /usr/local
 COPY chown=appuser:appuser /services/treasury/app ./app/
 
 USER appuser
-EXPOSE 8005
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8005"]
+EXPOSE 8003
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8003"]

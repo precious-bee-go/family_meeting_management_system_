@@ -13,5 +13,5 @@ COPY --from=builder /install /usr/local
 COPY chown=appuser:appuser /services/members-meeting/app ./app/
 
 USER appuser
-EXPOSE 8004
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8004"]
+EXPOSE 8001
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001"]
