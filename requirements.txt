@@ -11,3 +11,4 @@ pytest
 strawberry-graphql
 ruff
 -e libs/familymeet_common
+PyJWT
