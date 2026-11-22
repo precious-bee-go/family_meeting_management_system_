@@ -1,4 +1,4 @@
-from datetime import datetime, UTC, timedelta
+from datetime import UTC, datetime, timedelta
 from typing import Annotated
 
 import jwt
@@ -9,15 +9,17 @@ from familymeet_common import CurrentUser, ServiceSettings, current_user_depende
 
 SECRET = "test_secret"
 
+
 def make_token(secret: str = SECRET, **changes) -> str:
     payload = {
         "sub": "member-1",
         "roles": ["member", "treasurer"],
-        "exp": datetime.now(UTC) + timedelta(minutes=5)
+        "exp": datetime.now(UTC) + timedelta(minutes=5),
     }
     payload.update(changes)
     payload = {key: value for key, value in payload.items() if value is not None}
-    return jwt.encode(payload, secret, algorithm=SH256)
+    return jwt.encode(payload, secret, algorithm="HS256")
+
 
 def make_client() -> TestClient:
     settings = ServiceSettings(service_name="test", jwt_secret=SECRET)
@@ -31,31 +33,37 @@ def make_client() -> TestClient:
 
     return TestClient(app)
 
+
 def bearer(token: str) -> dict:
     return {"Authorization": f"Bearer {token}"}
 
+
 def test_valid_token_return_the_user():
-    response = make_client().get("/me", hearders=bearer(make_token()))
+    response = make_client().get("/me", headers=bearer(make_token()))
     assert response.status_code == 200
-    assert response.json() == {"id": "member-1", "roles": ["member", "treasury"]}
+    assert response.json() == {"id": "member-1", "roles": ["member", "treasurer"]}
+
 
 def test_missing_token_is_401():
     response = make_client().get("/me")
     assert response.status_code == 401
-    assert response.json()["error"]["code"] == "UNAUTHORIZE"
+    assert response.json()["error"]["code"] == "UNAUTHORIZED"
+
 
 def test_wrong_signature_is_401():
-    response = make_client().get("/me", hearders=bearer(make_token(secret="another-secret-key-123")))
+    response = make_client().get("/me", headers=bearer(make_token(secret="another-secret-key-123")))
     assert response.status_code == 401
     assert response.json()["error"]["code"] == "INVALID_TOKEN"
 
+
 def test_expired_token_is_401():
     expired = make_token(exp=datetime.now(UTC) - timedelta(minutes=5))
-    response = make_client().get("/me", hearders=bearer(expired))
+    response = make_client().get("/me", headers=bearer(expired))
     assert response.status_code == 401
-    assert response.json()["error"]["error"] == "TOKEN_EXPIRED"
+    assert response.json()["error"]["code"] == "TOKEN_EXPIRED"
+
 
 def test_token_without_subject_is_401():
-    response = make_client().get("/me", hearders=bearer(make_token(sub=None)))
+    response = make_client().get("/me", headers=bearer(make_token(sub=None)))
     assert response.status_code == 401
     assert response.json()["error"]["code"] == "INVALID_TOKEN"
