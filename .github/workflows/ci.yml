@@ -50,7 +50,7 @@ jobs:
       matrix:
         include:
           - name: members-meetings
-            dockerfile: services/members-meetings/Dockerfile
+            dockerfile: services/members-meeting/Dockerfile
           - name: debate
             dockerfile: services/debate/Dockerfile
           - name: treasury
