@@ -1,7 +1,0 @@
-services:
-  members-meetings:
-    build:
-      context: .
-      dockerfile: services/members-meetings/Dockerfile
-    ports:
-      - "8001:8001"
