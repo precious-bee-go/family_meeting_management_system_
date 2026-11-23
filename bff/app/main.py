@@ -14,4 +14,4 @@ def health():
 
 @app.get("/ready")
 def ready():
-    return {"status": "ok"}
+    return {"status": "ready"}
