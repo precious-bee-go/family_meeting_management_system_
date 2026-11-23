@@ -6,6 +6,7 @@ settings = ServiceSettings(setting_name="members-meeting")
 app = FastAPI(title="Members & Meetings Service")
 install_common(app, settings)
 
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
