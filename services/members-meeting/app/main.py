@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from familymeet_common import ServiceSettings, install_common
 
-settings = ServiceSettings(setting_name="members-meeting")
+settings = ServiceSettings(service_name="members-meeting")
 app = FastAPI(title="Members & Meetings Service")
 install_common(app, settings)
 

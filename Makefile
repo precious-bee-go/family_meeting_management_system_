@@ -19,7 +19,7 @@ test-common:
 	cd libs/familymeet_common && $(PYTHON) -m pytest
  
 test-members:
-	cd services/members-meetings && $(PYTHON) -m pytest
+	cd services/members-meeting && $(PYTHON) -m pytest
  
 test-debate:
 	cd services/debate && $(PYTHON) -m pytest
@@ -30,7 +30,7 @@ test-bff:
 	cd bff && $(PYTHON) -m pytest
  
 run-members:
-	cd services/members-meetings && uvicorn app.main:app --reload --port 8001
+	cd services/members-meeting && uvicorn app.main:app --reload --port 8001
  
 run-debate:
 	cd services/debate && uvicorn app.main:app --reload --port 8002

@@ -9,7 +9,7 @@ React Native mobile app with FastAPI microservices.
 | Service | Port | Folder |
 |---|---|---|
 | GraphQL BFF | 8000 | bff |
-| Members & Meetings | 8001 | services/members-meetings |
+| Members & Meetings | 8001 | services/members-meeting |
 | Debate & Resolution | 8002 | services/debate |
 | Treasury & Assistance | 8003 | services/treasury |
  
