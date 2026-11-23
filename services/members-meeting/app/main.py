@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="Members & Meetings Service")
+from familymeet_common import ServiceSettings, install_common
 
+settings = ServiceSettings(setting_name="members-meeting")
+app = FastAPI(title="Members & Meetings Service")
+install_common(app, settings)
 
 @app.get("/health")
 def health():
