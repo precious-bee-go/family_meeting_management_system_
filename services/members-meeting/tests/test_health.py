@@ -14,7 +14,7 @@ def test_health():
 def test_ready():
     response = client.get("ready")
     assert response.status_code == 200
-    assert response.json() == {"Status": "ok"}
+    assert response.json() == {"Status": "ready"}
 
 
 def test_unknown_route_uses_standard_error_format():
