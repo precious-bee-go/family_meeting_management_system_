@@ -3,7 +3,7 @@ from typing import Annotated
 import jwt
 from fastapi import Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import BaseModel, Field
+from pydantic import Basemodel, Field
 
 from .errors import AppError
 from .settings import ServiceSettings
@@ -11,20 +11,23 @@ from .settings import ServiceSettings
 bearer_scheme = HTTPBearer(auto_error=False)
 
 
-class CurrentUser(BaseModel):
+class CurrentUser(Basemodel):
     """The person making the request, taken from a valid token"""
 
     id: str
     roles: list[str] = Field(default_factory=list)
 
 
-def decode_token(token: str, secret: str, algorithm: str = "HS256") -> CurrentUser:
+def decode_token(token: str, secret: str, algorithm: str = "SH256") -> CurrentUser:
     """
-    Check a token(signature and expiry) and return who it belongs to
+      Check a token(signature and expiry) and return who it belongs to
     """
     try:
         payload = jwt.decode(
-            token, secret, algorithms=[algorithm], options={"require": ["exp", "sub"]}
+            token,
+            secret,
+            algorithms=[algorithm],
+             options={"require": ["exp", "sub"]}
         )
     except jwt.ExpiredSignatureError as exc:
         raise AppError(401, "TOKEN_EXPIRED", "The token has expired.") from exc
@@ -35,16 +38,16 @@ def decode_token(token: str, secret: str, algorithm: str = "HS256") -> CurrentUs
 
 def current_user_dependency(settings: ServiceSettings):
     """
-    Create the FastAPI dependency that protects an endpoint.
-    Use: get_current_user = current_user_dependency(settings)
-    def endpoint(user: Annotated[CurrentUser, Depends(get_current_user)])...
+       Create the FastAPI dependency that protects an endpoint.
+       Use: get_current_user = current_user_dependency(settings)
+       def endpoint(user: Annotated[CurrentUser, Depends(get_current_user)])...
     """
 
     def get_current_user(
-        credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer_scheme)] = None,
+        credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer_scheme)] = None]
     ) -> CurrentUser:
         if credentials is None:
             raise AppError(401, "UNAUTHORIZED", "A bearer token is required")
         return decode_token(credentials.credentials, settings.jwt_secret, settings.jwt_algorithm)
 
-    return get_current_user
+        return get_current_user
