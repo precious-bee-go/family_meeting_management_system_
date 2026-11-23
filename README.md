@@ -22,7 +22,7 @@ git clone https://github.com/OWNER/familymeet.git
 cd familymeet
 python -m venv .venv
 .venv\Scripts\activate
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 make test-common
 copy .env.example .env
 docker compose up --build -d
