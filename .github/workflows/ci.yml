@@ -32,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        path: [services/members-meetings, services/debate, services/treasury, bff]
+        path: [services/members-meeting, services/debate, services/treasury, bff]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
